@@ -18,7 +18,7 @@ router = APIRouter(tags=["ask"])
 async def ask_question(
     question: str,
     persona: str = "friendly",
-    nl_sql: bool = True,
+    nl_sql: bool = False,
     context_id: Optional[int] = None,
     db: Session = Depends(get_db),
 ):

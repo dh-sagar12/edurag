@@ -38,6 +38,13 @@
 
         <!-- Ask Form -->
         <form @submit.prevent="askQuestion" class="ask-form">
+            <div class="flex flex-col">
+                <label class="switch">
+                    <input type="checkbox" v-model="isSql">
+                    <span class="slider round"></span>
+                </label>
+                <span>Query Db</span>
+            </div>
             <input type="text" v-model="newQuestion" placeholder="Type your question..." :disabled="loading" required />
             <button type="submit" :disabled="loading">Ask</button>
         </form>
@@ -52,6 +59,7 @@ import { API_URL } from '../config'
 
 const chats = ref([])
 const newQuestion = ref('')
+const isSql = ref(false)
 const selectedPersona = ref('friendly')
 const loading = ref(false)
 
@@ -73,6 +81,7 @@ const askQuestion = async () => {
         const params = new URLSearchParams()
         params.append('question', newQuestion.value)
         params.append('persona', selectedPersona.value)
+        params.append('nl_sql', isSql.value)
         if (contextId) {
             params.append('context_id', contextId)
         }
